@@ -7,7 +7,7 @@ function Post({ post }) {
     <Card className="m-3 p-3 rounded">
         <Card.Body>
             <Link to={`/post/${post._id}`}>
-                  <larger><strong>{post.title}</strong></larger>  
+                  <strong>{post.title}</strong>
             </Link>
             <Card.Text as="p">
               Posted By: {post.creator}
