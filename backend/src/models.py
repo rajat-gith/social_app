@@ -18,7 +18,6 @@ class Post(models.Model):
     content = models.TextField()
     creator=models.CharField(max_length=20)
     created_on = models.DateTimeField(auto_now_add=True)
-    comment = models.ForeignKey("Comment",related_name='post_comments',on_delete=models.SET_NULL,null = True)
     _id=models.AutoField(primary_key=True,editable=False)
     #image=models.ImageField(null=True,blank=True)
 
@@ -36,8 +35,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return str(self.body)
-    
-    def save(self,*args,**kwargs):
-        super(Comment,self).save(*args,**kwargs)
-        curr_post =self.post
-        curr_post.comment.add(self)
