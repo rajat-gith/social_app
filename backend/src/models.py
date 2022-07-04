@@ -1,3 +1,4 @@
+from tokenize import Number
 from django.db import models
 
 # Create your models here.
@@ -23,14 +24,12 @@ class Post(models.Model):
     class Meta:
         ordering = ['-created_on']
 
-    def __str__(self):
-        return self.title
+    def __int__(self):
+        return int(self._id)
     
 class Comment(models.Model):
-    post=models.ForeignKey(Post,on_delete=models.SET_NULL,null=True)
-    user= models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
+    post_id=models.IntegerField(null=True,blank=True,default=0)
     name = models.CharField(max_length=80)
-    email = models.EmailField()
     body = models.TextField()
     _id=models.AutoField(primary_key=True,editable=False)
 

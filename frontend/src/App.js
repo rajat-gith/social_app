@@ -16,6 +16,7 @@ function App() {
         <Route path="/login" component={LoginScreen} />
         <Route path="/register" component={RegisterScreen} />
         <Route path="/post/:id" component={PostScreen} />
+
       </Container>
     </Router>
   );

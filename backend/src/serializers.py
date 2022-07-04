@@ -4,6 +4,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Post,Comment
+from drf_queryfields import QueryFieldsMixin
 
 
 
@@ -42,19 +43,13 @@ class UserSerializerWithToken(UserSerializer):
         return str(token.access_token)
 
 
-class CommentSerializer(serializers.ModelSerializer):
+class CommentSerializer(serializers.ModelSerializer,QueryFieldsMixin):
     class Meta:
         model=Comment
         fields='__all__'
 
 class PostSerializer(serializers.ModelSerializer):
-    comments = serializers.SerializerMethodField(read_only=True)
-
     class Meta:
         model = Post
         fields = '__all__'
 
-    def get_comments(self, obj):
-        comments = obj.comment_set.all()
-        serializer = CommentSerializer(comments, many=True)
-        return serializer.data
